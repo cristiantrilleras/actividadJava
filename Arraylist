@@ -1,0 +1,109 @@
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+public class Procesos {
+
+    ArrayList<String> nombres = new ArrayList<String>();
+    ArrayList<Integer> edades = new ArrayList<Integer>();
+
+    public void iniciar() {
+
+        String menu = "GESTION ESTUDIANTES\n";
+        menu += "1. Pedir datos estudiante\n";
+        menu += "2. Indique cual es el promedio de las edAdes\n";
+        menu += "3. indique cual o cuales es el estudiante de mayor edad del grupo\n";
+        menu += "4. indique cual o cuales es el estudiante de menor edad del grupo\n";
+        menu += "5. indique cuantos estudiantes son mayores de edad\n";
+        menu += "6. busqueda por nombre\n";
+        menu += "7. busqueda por edad\n";
+        menu += "8. salir\n";
+        menu += "Ingrese una opción\n";
+
+        int opc = 0;
+
+        do {
+            opc = Integer.parseInt(JOptionPane.showInputDialog(menu));
+            crearMenu(opc);
+        } while (opc != 8);
+    }
+
+    public void crearMenu(int opcion) {
+
+        switch (opcion) {
+            case 1:
+                llenarDatos();
+                break;
+            case 2:
+                if (validarLlenado()) {
+                    promedio();
+                }
+                break;
+            case 3:
+                if (validarLlenado()) {
+                    mayor(nombres);
+                }
+                break;
+            case 4:
+                if (validarLlenado()) {
+                    menor(nombres);
+                }
+                break;
+            case 5:
+                if (validarLlenado()) {
+                    mayorYMenor(edades);
+                }
+                break;
+            case 6:
+                if (validarLlenado()) {
+                    buscarPorNombre();
+                }
+                break;
+            case 7:
+                System.out.println("No implementado.");
+                break;
+            case 8:
+                System.out.println("Chao!!");
+                break;
+            default:
+                System.out.println("No existe el codigo");
+                break;
+        }
+    }
+
+    public boolean validarLlenado() {
+        if (nombres.size() > 0) {
+            return true;
+        } else {
+            System.out.println("Debe llenar datos");
+            return false;
+        }
+    }
+
+    public void llenarDatos() {
+        int tam = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de estudiantes"));
+
+        for (int i = 0; i < tam; i++) {
+            nombres.add(JOptionPane.showInputDialog("Ingrese el nombre"));
+            edades.add(Integer.parseInt(JOptionPane.showInputDialog("ingresa la edad")));
+            System.out.println("Nombre: " + nombres.get(i) + " y su edad es: " + edades.get(i));
+        }
+    }
+
+    public void promedio() {
+        double suma = 0;
+        for (int i = 0; i < edades.size(); i++) {
+            suma = suma + edades.get(i);
+        }
+        System.out.println("el promedio de edades es: " + suma / edades.size());
+    }
+
+    public void mayor(ArrayList<String> a) {
+        for (int i = 0; i < edades.size(); i++) {
+            if (edades.get(i) >= 18) {
+                System.out.print(a.get(i) + " - ");
+            }
+        }
+        System.out.println("son los estudiantes mayores de edad");
+
+    }
+
